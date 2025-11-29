@@ -1,4 +1,4 @@
-# 🐭 Tumor Volume Viewer
+# Tumor Volume Viewer
 
 マウス腫瘍体積データ（`mouse_id`, `day`, `group`, `volume`）を Streamlit で可視化するアプリです。
 
