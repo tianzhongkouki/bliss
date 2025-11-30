@@ -8,11 +8,11 @@ from pathlib import Path
 # ---------------------------
 st.set_page_config(
     page_title="Tumor Volume Viewer",
-    page_icon="🐭",
+    page_icon="combination study",
     layout="wide"
 )
 
-st.title("🐭 マウス腫瘍体積データ可視化アプリ")
+st.title("マウス腫瘍体積データ可視化アプリ")
 st.write("CSV（mouse_id / day / group / volume）を読み込み、可視化します。")
 
 # ---------------------------
@@ -87,7 +87,7 @@ endpoint_threshold = st.sidebar.number_input(
 # ---------------------------
 # グループ別の平均腫瘍体積
 # ---------------------------
-st.subheader("📊 グループ別の腫瘍体積推移（平均）")
+st.subheader("グループ別の腫瘍体積推移（平均）")
 
 if filtered_df.empty:
     st.warning("選択された条件に該当するデータがありません。")
@@ -113,7 +113,7 @@ else:
 # ---------------------------
 # 群ごとの個体別腫瘍体積推移（2×2 レイアウト）
 # ---------------------------
-st.subheader("🧪 群ごとの個体別腫瘍体積推移（2×2レイアウト）")
+st.subheader("群ごとの個体別腫瘍体積推移（2×2レイアウト）")
 
 if not filtered_df.empty:
     grp_list = sorted(filtered_df["group"].unique())
@@ -146,7 +146,7 @@ if not filtered_df.empty:
 # ---------------------------
 # 人道的エンドポイント到達個体の「最も早い直前 day」の全個体データ + TGI
 # ---------------------------
-st.subheader("⚠️ 人道的エンドポイント到達個体に対する **最も早い直前 day** の全個体データ + TGI")
+st.subheader("人道的エンドポイント到達個体に対する **最も早い直前 day** の全個体データ + TGI")
 
 tgi_by_group = {}
 bliss_value = None
@@ -206,7 +206,7 @@ else:
                 # ---------------------------
                 # Bliss independence model
                 # ---------------------------
-                st.subheader("🔀 Bliss independence model による期待 TGI")
+                st.subheader("Bliss independence model による期待 TGI")
 
                 if (drugA_group in tgi_by_group) and (drugB_group in tgi_by_group):
                     tgiA = tgi_by_group[drugA_group]
@@ -240,7 +240,7 @@ else:
 # ---------------------------
 # Combination Index（CI） + Bootstrap 95%CI
 # ---------------------------
-st.subheader("🧮 Combination Index（CI） と 95%CI（Bootstrap）")
+st.subheader("Combination Index（CI） と 95%CI（Bootstrap）")
 
 if ("Combo" not in day_df["group"].unique()) and ("A+B" not in day_df["group"].unique()):
     st.info("Combo 群（A+B）がデータに存在しないため、CI は計算できません。")
@@ -296,7 +296,7 @@ else:
                 n_boot = st.sidebar.number_input(
                     "ブートストラップ回数（CI 95%CI 用）",
                     min_value=200,
-                    max_value=10000,
+                    max_value=100000,
                     step=200,
                     value=2000
                 )
@@ -340,7 +340,7 @@ else:
                     CI_high = np.percentile(CI_list, 97.5)
 
                     st.markdown(f"""
-                    ### 📏 **Combination Index 95% CI（Bootstrap）**
+                    ### **Combination Index 95% CI（Bootstrap）**
                     - CI = **{CI:.3f}**
                     - 95% CI = **[{CI_low:.3f}, {CI_high:.3f}]**
                     """)
